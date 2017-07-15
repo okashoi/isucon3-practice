@@ -297,7 +297,7 @@ dispatch_get('/memo/:id', function() {
                 $newer = $memos[$i + 1];
             }
 
-
+            break;
         }
     }   
 
