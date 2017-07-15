@@ -7,7 +7,10 @@ CREATE TABLE `memos` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
+
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+create index memos_user_id_index on memos (user, is_private);
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
