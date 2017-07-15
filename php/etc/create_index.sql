@@ -1,0 +1,1 @@
+create index memos_user_id_index on memos (user, is_private);
