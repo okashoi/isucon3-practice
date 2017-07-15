@@ -133,13 +133,12 @@ dispatch_get('/', function() {
     $stmt->execute();
     $memos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    foreach($memos as &$memo) {
-        $stmt = $db->prepare('SELECT username FROM users WHERE id = :id');
-        $stmt->bindValue(':id', $memo["user"]);
-        $stmt->execute();
+    $stmt = $db->prepare('SELECT id, username FROM users');
+    $stmt->execute();
+    $users = array_map('current', $stmt->fetchAll(PDO::FETCH_GROUP));
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $memo["username"] = $result["username"];
+    foreach($memos as &$memo) {
+        $memo["username"] = $users[$memo["user"]]["username"];
     }
 
     set('memos', $memos);
@@ -162,13 +161,12 @@ dispatch_get('/recent/:page', function(){
     $stmt->execute();
     $memos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    foreach($memos as &$memo) {
-        $stmt = $db->prepare('SELECT username FROM users WHERE id = :id');
-        $stmt->bindValue(':id', $memo["user"]);
-        $stmt->execute();
+    $stmt = $db->prepare('SELECT id, username FROM users');
+    $stmt->execute();
+    $users = array_map('current', $stmt->fetchAll(PDO::FETCH_GROUP));
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $memo["username"] = $result["username"];
+    foreach($memos as &$memo) {
+        $memo["username"] = $users[$memo["user"]]["username"];
     }
 
     set('memos', $memos);
