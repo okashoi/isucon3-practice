@@ -1,7 +1,7 @@
 <?php
 
-//ini_set( 'session.save_handler', 'memcached' );
-//ini_set( 'session.save_path', 'localhost:11211' );
+ini_set( 'session.save_handler', 'redis' );
+ini_set( 'session.save_path', 'tcp://127.0.0.1:6379' );
 
 require_once 'limonade/lib/limonade.php';
 
